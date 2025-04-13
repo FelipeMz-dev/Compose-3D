@@ -1,1 +1,8 @@
 # Compose-3D
+The project use drawScope to draw path poligons in a scene with drawPath calculating projection
+
+## Matrix3x3
+This objet calculate te position in vertex to give toation angle in poligons
+
+## ZBuffer
+Use the clipping technique to divide overlapping triangles and use the the Separating Axis Theorem to calculate the intersection in 3D scene
