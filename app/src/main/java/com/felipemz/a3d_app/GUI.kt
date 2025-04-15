@@ -46,7 +46,7 @@ fun BoxScope.GUI(
     cubeNumber: MutableIntState,
     cubeAngle: MutableState<Vertex>,
     cubeSize: MutableState<Float>,
-    backLine: MutableState<Boolean>,
+    drawOutLine: MutableState<Boolean>,
 ){
     Column(
         modifier = Modifier
@@ -62,7 +62,7 @@ fun BoxScope.GUI(
         Slider(
             value = camera.focalLength,
             onValueChange = onSliderChange,
-            valueRange = 100f..800f,
+            valueRange = 100f..1000f,
         )
 
         //Text(
@@ -99,14 +99,14 @@ fun BoxScope.GUI(
 
             Column(modifier = Modifier.weight(0.8f)) {
                 Text(
-                    text = "backLine: ${backLine.value}",
+                    text = "drawOutLine: ${drawOutLine.value}",
                     color = Color.Black,
                 )
 
                 Switch(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
-                    checked = backLine.value,
-                    onCheckedChange =  { backLine.value = it }
+                    checked = drawOutLine.value,
+                    onCheckedChange =  { drawOutLine.value = it }
                 )
             }
         }

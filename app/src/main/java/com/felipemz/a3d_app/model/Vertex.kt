@@ -78,4 +78,12 @@ data class Vertex(
     fun length(): Float = sqrt(x * x + y * y + z * z)
 
     fun lengthSquared(): Float = x * x + y * y + z * z
+
+    fun distanceTo(other: Vertex): Float {
+        return (this - other).length()
+    }
+
+    fun midpoint(other: Vertex): Vertex {
+        return (this + other) / 2f
+    }
 }

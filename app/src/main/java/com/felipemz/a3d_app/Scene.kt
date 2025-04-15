@@ -22,4 +22,8 @@ class Scene {
     fun clear() {
         objects.clear()
     }
+
+    //fun findByProperty(key: String, value: Any): List<SceneObject> {
+    //    return objects.filter { it.properties[key] == value }
+    //}
 }

@@ -36,18 +36,10 @@ data class Camera(
     }
 
     fun moveTo(vertex: Vertex) {
-        this.position = this.position.copy(
-            x = this.position.x + vertex.x,
-            y = this.position.y + vertex.y,
-            z = this.position.z + vertex.z
-        )
+        this.position += vertex
     }
 
     fun lookAt(vertex: Vertex) {
-        this.angle = Vertex(
-            x = vertex.x - this.position.x,
-            y = vertex.y - this.position.y,
-            z = vertex.z - this.position.z
-        )
+        this.angle = vertex - this.position
     }
 }

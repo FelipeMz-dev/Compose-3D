@@ -7,6 +7,8 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.rememberTextMeasurer
+import com.felipemz.a3d_app.drawScope3D.DrawScope3D
+import com.felipemz.a3d_app.drawScope3D.DrawScope3DFactory
 import com.felipemz.a3d_app.model.Camera
 
 @Composable
@@ -18,26 +20,12 @@ fun Canvas3D(
 ) {
     val textMeasurer = rememberTextMeasurer()
     Spacer(modifier.drawBehind {
-        draw3DScene(
+        val drawScope3D = DrawScope3DFactory.create(
             textMeasurer = textMeasurer,
             camera = camera,
-            onDraw = onDraw,
-            showBorder = showBorder
+            drawScope = this,
+            showOutline = showBorder
         )
+        drawScope3D.onDraw()
     })
-}
-
-fun DrawScope.draw3DScene(
-    textMeasurer: TextMeasurer,
-    camera: Camera,
-    showBorder: Boolean,
-    onDraw: DrawScope3D.() -> Unit
-) {
-    val drawScope3D = DrawScope3DImpl(
-        textMeasurer = textMeasurer,
-        camera = camera,
-        drawScope = this,
-        showOutline = showBorder
-    )
-    drawScope3D.onDraw()
 }

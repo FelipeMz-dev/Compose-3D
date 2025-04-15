@@ -1,6 +1,6 @@
 package com.felipemz.a3d_app.model
 
-import com.felipemz.a3d_app.DrawScope3D
+import com.felipemz.a3d_app.drawScope3D.DrawScope3D
 
 data class SceneObject(
     val position: Vertex,

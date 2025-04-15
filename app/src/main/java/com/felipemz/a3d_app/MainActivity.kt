@@ -196,7 +196,7 @@ fun Scene3D(
             cubeNumber = cubeNumber,
             cubeAngle = cubeAngle,
             cubeSize = cubeSize,
-            backLine = drawBorderLine,
+            drawOutLine = drawBorderLine,
         )
     }
 }
