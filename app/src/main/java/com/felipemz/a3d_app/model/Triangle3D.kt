@@ -1,6 +1,8 @@
 package com.felipemz.a3d_app.model
 
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 
 data class Triangle3D(
     val a: Vertex,
@@ -8,5 +10,7 @@ data class Triangle3D(
     val c: Vertex,
     val zIndex: Float = 0f,
     val color: Color = Color.Unspecified,
-    val owner: SceneObject? = null
+    val imageBitmap: ImageBitmap? = null,
+    val owner: SceneObject? = null,
+    val textureVertices: List<Offset>? = null
 )

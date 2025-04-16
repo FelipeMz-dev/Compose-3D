@@ -21,8 +21,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.imageResource
 import com.felipemz.a3d_app.model.Camera
 import com.felipemz.a3d_app.model.SceneObject
 import com.felipemz.a3d_app.model.Vertex
@@ -56,23 +58,36 @@ fun Scene3D(
 ) {
 
     val scene by remember { mutableStateOf(Scene()) }
+    val image = ImageBitmap.imageResource(R.drawable.texture_stone)
 
     val initScene: () -> Unit = {
         scene.add(
             SceneObject(
-                position = Vertex(0f, 0f, 20f),
+                position = Vertex(0f, -10f, 20f),
                 rotation = Vertex(0f, 0f, 0f),
                 scale = Vertex(1f, 1f, 1f),
-                draw = { obj -> drawCubeObject(obj) }
+                draw = { obj -> drawCubeObject(
+                    obj,
+                    faceColor = {
+                        when (it) {
+                            0, 1 -> Color.Red
+                            2, 3 -> Color.Green
+                            4, 5 -> Color.Blue
+                            6, 7 -> Color.Magenta
+                            8, 9 -> Color.Cyan
+                            10, 11 -> Color.Yellow
+                            else -> Color.White
+                        }
+                    }) }
             )
         )
 
         scene.add(
             SceneObject(
-                position = Vertex(0f, 0f, 5f),
+                position = Vertex(0f, -10f, 5f),
                 rotation = Vertex(0f, 0f, 0f),
                 scale = Vertex(1f, 1f, 1f),
-                draw = { obj -> drawCubeObject(obj) }
+                draw = { obj -> drawCubeObject(obj, faceImage = { image }) }
             )
         )
 
@@ -185,6 +200,7 @@ fun Scene3D(
             camera = camera,
             showBorder = drawBorderLine.value
         ) {
+            drawGrid()
             drawScene(scene)
         }
 
