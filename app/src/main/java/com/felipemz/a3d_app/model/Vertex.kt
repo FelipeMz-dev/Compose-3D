@@ -1,5 +1,6 @@
 package com.felipemz.a3d_app.model
 
+import androidx.compose.ui.geometry.Offset
 import kotlin.math.sqrt
 
 data class Vertex(
@@ -87,3 +88,5 @@ data class Vertex(
         return (this + other) / 2f
     }
 }
+
+data class VertexUV(val position: Vertex, val uv: Offset)

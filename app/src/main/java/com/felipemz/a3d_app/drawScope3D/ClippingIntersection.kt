@@ -1,6 +1,7 @@
 package com.felipemz.a3d_app.drawScope3D
 
 import com.felipemz.a3d_app.model.Vertex
+import com.felipemz.a3d_app.model.VertexUV
 import com.felipemz.a3d_app.utils.MathUtils.computeNormal
 
 object ClippingIntersection {
@@ -38,10 +39,10 @@ object ClippingIntersection {
     }
 
     fun clipPolygonWithTriangle(
-        clippee: List<Vertex>,
+        clippee: List<VertexUV>,
         clipper: List<Vertex>,
         invert: Boolean = false
-    ): List<List<Vertex>> {
+    ): List<List<VertexUV>> {
         var result = clippee
 
         for (i in clipper.indices) {
@@ -59,9 +60,9 @@ object ClippingIntersection {
         return triangulate(result)
     }
 
-    private fun triangulate(poly: List<Vertex>): List<List<Vertex>> {
+    private fun triangulate(poly: List<VertexUV>): List<List<VertexUV>> {
         if (poly.size < 3) return emptyList()
-        val triangles = mutableListOf<List<Vertex>>()
+        val triangles = mutableListOf<List<VertexUV>>()
         for (i in 1 until poly.size - 1) {
             triangles.add(listOf(poly[0], poly[i], poly[i + 1]))
         }
@@ -69,35 +70,37 @@ object ClippingIntersection {
     }
 
     private fun clipPolygonByPlane(
-        polygon: List<Vertex>,
+        polygon: List<VertexUV>,
         planePoint: Vertex,
         planeNormal: Vertex
-    ): List<Vertex> {
+    ): List<VertexUV> {
         if (polygon.size < 3) return emptyList()
 
-        val output = mutableListOf<Vertex>()
+        val output = mutableListOf<VertexUV>()
 
         fun distance(v: Vertex): Float = (v - planePoint).dot(planeNormal)
 
         for (i in polygon.indices) {
             val current = polygon[i]
             val next = polygon[(i + 1) % polygon.size]
-            val dCurrent = distance(current)
-            val dNext = distance(next)
+            val dCurrent = distance(current.position)
+            val dNext = distance(next.position)
 
             if (dCurrent >= 0f) {
                 if (dNext >= 0f) {
                     output.add(next)
                 } else {
                     val t = dCurrent / (dCurrent - dNext)
-                    val intersect = current + (next - current) * t
-                    output.add(intersect)
+                    val newPos = current.position + (next.position - current.position) * t
+                    val newUV = current.uv + (next.uv - current.uv) * t
+                    output.add(VertexUV(newPos, newUV))
                 }
             } else {
                 if (dNext >= 0f) {
                     val t = dCurrent / (dCurrent - dNext)
-                    val intersect = current + (next - current) * t
-                    output.add(intersect)
+                    val newPos = current.position + (next.position - current.position) * t
+                    val newUV = current.uv + (next.uv - current.uv) * t
+                    output.add(VertexUV(newPos, newUV))
                     output.add(next)
                 }
             }

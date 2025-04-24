@@ -19,13 +19,15 @@ fun Canvas3D(
     onDraw: DrawScope3D.() -> Unit
 ) {
     val textMeasurer = rememberTextMeasurer()
-    Spacer(modifier.drawBehind {
-        val drawScope3D = DrawScope3DFactory.create(
-            textMeasurer = textMeasurer,
-            camera = camera,
-            drawScope = this,
-            showOutline = showBorder
-        )
-        drawScope3D.onDraw()
-    })
+    Spacer(
+        modifier = modifier.drawBehind {
+            val drawScope3D = DrawScope3DFactory.create(
+                textMeasurer = textMeasurer,
+                camera = camera,
+                drawScope = this,
+                showOutline = showBorder
+            )
+            drawScope3D.onDraw()
+        }
+    )
 }

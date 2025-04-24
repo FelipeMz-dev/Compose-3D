@@ -20,6 +20,7 @@ import com.felipemz.a3d_app.model.Matrix3x3
 import com.felipemz.a3d_app.model.SceneObject
 import com.felipemz.a3d_app.model.Triangle3D
 import com.felipemz.a3d_app.model.Vertex
+import com.felipemz.a3d_app.model.VertexUV
 import com.felipemz.a3d_app.shapes.CubeFactory
 import com.felipemz.a3d_app.utils.MathUtils.computeDirection
 import com.felipemz.a3d_app.utils.MathUtils.computeNormal
@@ -245,9 +246,6 @@ class DrawScope3DImpl(
             )
             if (projected1.size == 3) {
 
-                //var pathA = pathFromOffsets(projected1)
-                var color = triangleA.color
-
                 val trianglesToDraw = mutableListOf<Triangle3D>()
 
                 triangleZBuffer.forEach { triangleB ->
@@ -260,10 +258,13 @@ class DrawScope3DImpl(
                             )
                         ) {
 
-                            // test intersection
-                            color = triangleA.color //.copy(alpha = 0.5f)
+                            val uvList = triangleA.textureVertices ?: listOf(Offset.Zero, Offset.Zero, Offset.Zero)
+                            val polygonA = listOf(
+                                VertexUV(triangleA.a, uvList[0]),
+                                VertexUV(triangleA.b, uvList[1]),
+                                VertexUV(triangleA.c, uvList[2])
+                            )
 
-                            val polygonA = listOf(triangleA.a, triangleA.b, triangleA.c)
                             val polygonB = listOf(triangleB.a, triangleB.b, triangleB.c)
 
                             val frontParts = clipPolygonWithTriangle(polygonA, polygonB)
@@ -272,9 +273,10 @@ class DrawScope3DImpl(
                             for (tri in frontParts) {
                                 trianglesToDraw.add(
                                     Triangle3D(
-                                        tri[0], tri[1], tri[2],
-                                        projector.computeZIndex(tri[0], tri[1], tri[2]),
-                                        triangleA.color, triangleA.imageBitmap ,triangleA.owner, triangleA.textureVertices
+                                        tri[0].position, tri[1].position, tri[2].position,
+                                        projector.computeZIndex(tri[0].position, tri[1].position, tri[2].position),
+                                        triangleA.color, triangleA.imageBitmap ,triangleA.owner,
+                                        listOf(tri[0].uv, tri[1].uv, tri[2].uv)
                                     )
                                 )
                             }
@@ -282,9 +284,10 @@ class DrawScope3DImpl(
                             for (tri in backParts) {
                                 trianglesToDraw.add(
                                     Triangle3D(
-                                        tri[0], tri[1], tri[2],
-                                        projector.computeZIndex(tri[0], tri[1], tri[2]) * 1.2f,
-                                        color, triangleA.imageBitmap, triangleA.owner, triangleA.textureVertices
+                                        tri[0].position, tri[1].position, tri[2].position,
+                                        projector.computeZIndex(tri[0].position, tri[1].position, tri[2].position) * 1.2f,
+                                        triangleA.color, triangleA.imageBitmap, triangleA.owner,
+                                        listOf(tri[0].uv, tri[1].uv, tri[2].uv)
                                     )
                                 )
                             }
