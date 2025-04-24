@@ -7,4 +7,8 @@ This objet calculate te position in vertex to give toation angle in poligons
 **ZBuffer:**
 Use the clipping technique to divide overlapping triangles and use the the Separating Axis Theorem to calculate the intersection in 3D scene
 
-![WhatsApp Image 2025-04-13 at 1 58 19 PM](https://github.com/user-attachments/assets/5e0901ea-aebe-4fa0-85bd-ca956467626f)
+![Captura desde 2025-04-24 13-42-55](https://github.com/user-attachments/assets/2fa41e0a-f74c-4333-9f75-f4845a49c647)
+
+**Texture:**
+
+![Captura desde 2025-04-24 13-46-54](https://github.com/user-attachments/assets/ce23ff29-d242-4511-9c1e-f89f7f517498)
