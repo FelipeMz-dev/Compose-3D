@@ -1,6 +1,7 @@
 package com.felipemz.a3d_app.utils
 
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 
 object Offset3DUtils {
@@ -10,6 +11,11 @@ object Offset3DUtils {
             else lineTo(offset.x, offset.y)
         }
         close()
+    }
+
+    fun isPathOutOfBounds(screenSize: Size, path: Path): Boolean {
+        val bounds = path.getBounds()
+        return bounds.right < 0 || bounds.left > screenSize.width || bounds.bottom < 0 || bounds.top > screenSize.height
     }
 
     fun adjustPoint(point: Offset, other: Offset, min: Offset, max: Offset): Offset {

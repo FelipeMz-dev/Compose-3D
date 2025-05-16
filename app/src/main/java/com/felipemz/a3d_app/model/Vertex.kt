@@ -87,6 +87,22 @@ data class Vertex(
     fun midpoint(other: Vertex): Vertex {
         return (this + other) / 2f
     }
+
+    fun toRadians(): Vertex {
+        return Vertex(
+            Math.toRadians(x.toDouble()).toFloat(),
+            Math.toRadians(y.toDouble()).toFloat(),
+            Math.toRadians(z.toDouble()).toFloat()
+        )
+    }
+
+    fun toDegrees(): Vertex {
+        return Vertex(
+            Math.toDegrees(x.toDouble()).toFloat(),
+            Math.toDegrees(y.toDouble()).toFloat(),
+            Math.toDegrees(z.toDouble()).toFloat()
+        )
+    }
 }
 
 data class VertexUV(val position: Vertex, val uv: Offset)

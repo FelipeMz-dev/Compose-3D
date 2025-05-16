@@ -5,9 +5,9 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 data class Camera(
-    var position: Vertex = Vertex(0f, -5f, -5f),
+    var position: Vertex = Vertex(0f, -10f, 0f),
     var angle: Vertex = Vertex(0f, 0f, 0f),
-    var focalLength: Float = 500f,
+    var focalLength: Float = 800f,
     var screenSize: Size = Size(0f, 0f)
 ) {
 

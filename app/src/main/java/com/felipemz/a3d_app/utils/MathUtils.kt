@@ -1,6 +1,5 @@
 package com.felipemz.a3d_app.utils
 
-import com.felipemz.a3d_app.model.Camera
 import com.felipemz.a3d_app.model.Vertex
 
 object MathUtils {

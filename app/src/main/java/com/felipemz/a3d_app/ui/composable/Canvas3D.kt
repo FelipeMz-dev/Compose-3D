@@ -1,11 +1,9 @@
-package com.felipemz.a3d_app
+package com.felipemz.a3d_app.ui.composable
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.rememberTextMeasurer
 import com.felipemz.a3d_app.drawScope3D.DrawScope3D
 import com.felipemz.a3d_app.drawScope3D.DrawScope3DFactory

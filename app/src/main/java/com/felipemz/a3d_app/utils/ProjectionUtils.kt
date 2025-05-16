@@ -44,9 +44,8 @@ class ProjectionUtils(private val camera: Camera) {
         return cosX * (cosY * d.z + sinY * (sinZ * d.y + cosZ * d.x)) - sinX * (cosZ * d.y - sinZ * d.x)
     }
 
-    fun computeZIndex(
-        a: Vertex,
-        b: Vertex,
-        c: Vertex
-    ) = (distanceToProjectionZ(a) + distanceToProjectionZ(b) + distanceToProjectionZ(c)) / 3f
+    fun computeZIndex(vararg vertices: Vertex): Float {
+        if (vertices.isEmpty()) return Float.MAX_VALUE
+        return vertices.map { distanceToProjectionZ(it) }.average().toFloat()
+    }
 }
